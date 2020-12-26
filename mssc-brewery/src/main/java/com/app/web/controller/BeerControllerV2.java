@@ -20,6 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.app.services.v2.BeerServiceV2;
 import com.app.web.model.v2.BeerDtoV2;
 
+import lombok.val;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @RequestMapping("/api/v2/beer")
 @RestController
 public class BeerControllerV2 {
@@ -38,9 +42,10 @@ public class BeerControllerV2 {
     @PostMapping // POST - create new beer
     public ResponseEntity<HttpHeaders> handlePost(@NotNull @Valid BeerDtoV2 beerDto){
 
-        BeerDtoV2 savedDto = beerServiceV2.saveNewBeer(beerDto);
+    	log.debug("In handlePost ...");
+        val savedDto = beerServiceV2.saveNewBeer(beerDto);
 
-        HttpHeaders headers = new HttpHeaders();
+        val headers = new HttpHeaders();
         //todo add hostname to url
         headers.add("Location", "/api/v1/beer/" + savedDto.getId().toString());
 
