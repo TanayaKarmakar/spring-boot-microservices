@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.app.domain.Beer;
 import com.app.repositories.BeerRepository;
+import com.app.web.model.BeerStyleEnum;
 
 @Component
 public class BeerLoader implements CommandLineRunner {
@@ -29,7 +30,7 @@ public class BeerLoader implements CommandLineRunner {
 		if(beerRepository.count() == 0) {
 			beerRepository.save(Beer.builder()
 					.beerName("Mango Bos")
-					.beerStyle("IPA")
+					.beerStyle(BeerStyleEnum.ALE)
 					.quantityToBrew(200)
 					.minOnHand(12)
 					.upc(BEER_1_UPC)
@@ -39,7 +40,7 @@ public class BeerLoader implements CommandLineRunner {
 			
 			beerRepository.save(Beer.builder()
 					.beerName("Galaxy Cat")
-					.beerStyle("PALE_ALE")
+					.beerStyle(BeerStyleEnum.PALE_ALE)
 					.quantityToBrew(200)
 					.minOnHand(12)
 					.upc(BEER_2_UPC)
