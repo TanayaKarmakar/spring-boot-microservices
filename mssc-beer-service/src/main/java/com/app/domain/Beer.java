@@ -15,6 +15,8 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.app.web.model.BeerStyleEnum;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -45,7 +47,7 @@ public class Beer {
 	@UpdateTimestamp
 	private Timestamp lastModifiedDate;
 	private String beerName;
-	private String beerStyle;
+	private BeerStyleEnum beerStyle;
 	
 	@Column(unique = true)
 	private String upc;
