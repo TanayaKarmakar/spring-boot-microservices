@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Component
-public class BeerOrderBootstrap implements CommandLineRunner {
+public class BeerOrderBootStrap implements CommandLineRunner {
 	public static final String TASTING_ROOM = "Tasting Room";
     public static final String BEER_1_UPC = "0631234200036";
     public static final String BEER_2_UPC = "0631234300019";
