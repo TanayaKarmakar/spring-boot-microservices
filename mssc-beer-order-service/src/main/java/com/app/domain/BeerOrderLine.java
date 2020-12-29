@@ -13,9 +13,13 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
+//@NoArgsConstructor
 @Entity
 public class BeerOrderLine extends BaseEntity {
+	public BeerOrderLine() {
+		
+	}
+	
 	@Builder
     public BeerOrderLine(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate,
                          BeerOrder beerOrder, UUID beerId, Integer orderQuantity,

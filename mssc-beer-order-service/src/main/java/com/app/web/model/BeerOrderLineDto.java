@@ -9,9 +9,13 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
+//@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class BeerOrderLineDto extends BaseItem {
+	
+	public BeerOrderLineDto() {
+		
+	}
 
 	@Builder
 	public BeerOrderLineDto(UUID id, Integer version, OffsetDateTime createdDate, OffsetDateTime lastModifiedDate,
@@ -22,6 +26,7 @@ public class BeerOrderLineDto extends BaseItem {
 		this.beerId = beerId;
 		this.orderQuantity = orderQuantity;
 	}
+	
 	private String upc;
 	private String beerName;
 	private UUID beerId;
