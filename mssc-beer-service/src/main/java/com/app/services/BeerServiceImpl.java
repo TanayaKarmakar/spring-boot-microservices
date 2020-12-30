@@ -10,6 +10,7 @@ import com.app.web.controller.NotFoundException;
 import com.app.web.mappers.BeerMapper;
 import com.app.web.model.BeerDto;
 
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @Service
