@@ -21,9 +21,14 @@ public class BeerServiceImpl implements BeerService {
 
 	@Override
 	public BeerDto getById(UUID beerId) {
-		return beerMapper.beerToBeerDto(
-				beerRepository.findById(beerId).orElseThrow(NotFoundException::new)
-		);
+//		return beerMapper.beerToBeerDto(
+//				beerRepository.findById(beerId).orElseThrow(NotFoundException::new)
+//		);
+		
+		Beer beer = beerRepository.findById(beerId).orElseThrow(NotFoundException::new);
+		BeerDto beerDto = beerMapper.beerToBeerDto(beer);
+		return beerDto;
+		
 	}
 
 	@Override

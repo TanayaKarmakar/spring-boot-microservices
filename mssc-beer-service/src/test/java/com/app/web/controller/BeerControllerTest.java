@@ -71,7 +71,7 @@ public class BeerControllerTest {
 						parameterWithName("iscold").description("Is Beer Cold Query Param")
 				),
 				responseFields(
-						fieldWithPath("id").description("Id of Beer"),
+						fieldWithPath("uuid").description("Id of Beer"),
 						fieldWithPath("version").description("Version number"),
                         fieldWithPath("createdDate").description("Date Created"),
                         fieldWithPath("lastModifiedDate").description("Date Updated"),
@@ -79,7 +79,7 @@ public class BeerControllerTest {
                         fieldWithPath("beerStyle").description("Beer Style"),
                         fieldWithPath("upc").description("UPC of Beer"),
                         fieldWithPath("price").description("Price"),
-                        fieldWithPath("quantityOnHand").description("Quantity On hand")
+                        fieldWithPath("quantityToBrew").description("Quantity To Brew")
 				)));
 	}
 	
@@ -97,7 +97,7 @@ public class BeerControllerTest {
 				.content(beerToJson)).andExpect(status().isCreated())
 		.andDo(document("v1/beer", 
 				requestFields(
-						fields.withPath("id").ignored(),
+						fields.withPath("uuid").ignored(),
 						fields.withPath("version").ignored(),
 						fields.withPath("createdDate").ignored(),
 						fields.withPath("lastModifiedDate").ignored(),
@@ -105,7 +105,7 @@ public class BeerControllerTest {
 						fields.withPath("beerStyle").description("Style of beer"),
 						fields.withPath("upc").description("Beer UPC").attributes(),
 						fields.withPath("price").description("Beer Price"),
-						fields.withPath("quantityOnHand").ignored()	
+						fields.withPath("quantityToBrew").ignored()	
 				)));
 		
 	}
@@ -126,8 +126,8 @@ public class BeerControllerTest {
 				.beerName("My Beer")
 				.beerStyle(BeerStyleEnum.ALE)
 				.price(new BigDecimal("2.99"))
-				.upc(3564354354345L)
-				.quantityOnHand(12)
+				.upc("3564354354345")
+				.quantityToBrew(12)
 				.build();
 	}
 	

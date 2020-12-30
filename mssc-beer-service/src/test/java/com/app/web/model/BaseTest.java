@@ -16,11 +16,11 @@ public class BaseTest {
 		return BeerDto.builder()
 				.beerName("BeerName")
 				.beerStyle(BeerStyleEnum.ALE)
-				.id(UUID.randomUUID())
+				.uuid(UUID.randomUUID())
 				.createdDate(OffsetDateTime.now())
 				.lastModifiedDate(OffsetDateTime.now())
 				.price(new BigDecimal("12.99"))
-				.upc(3435435435334L)
+				.upc("3435435435334")
 				.build();
 	}
 }

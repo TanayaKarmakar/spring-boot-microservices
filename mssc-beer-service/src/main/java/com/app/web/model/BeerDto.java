@@ -25,10 +25,10 @@ import lombok.ToString;
 @ToString
 public class BeerDto {
 	@Null
-	private UUID id;
+	private UUID uuid;
 	
 	@Null
-	private Integer version;
+	private Long version;
 	
 	@Null
 	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssZ", shape = JsonFormat.Shape.STRING)
@@ -44,9 +44,8 @@ public class BeerDto {
 	@NotNull
 	private BeerStyleEnum beerStyle;
 
-	@Positive
 	@NotNull
-	private Long upc;
+	private String upc;
 	
 	@Positive
 	@NotNull
@@ -54,5 +53,5 @@ public class BeerDto {
 	private BigDecimal price;
 	
 	@Positive
-	private Integer quantityOnHand;
+	private Integer quantityToBrew;
 }
