@@ -9,7 +9,7 @@ import com.app.domain.Beer;
 import com.app.repositories.BeerRepository;
 import com.app.web.model.BeerStyleEnum;
 
-@Component
+//@Component
 public class BeerLoader implements CommandLineRunner {
 	private final BeerRepository beerRepository;
 	
@@ -30,7 +30,7 @@ public class BeerLoader implements CommandLineRunner {
 		if(beerRepository.count() == 0) {
 			beerRepository.save(Beer.builder()
 					.beerName("Mango Bos")
-					.beerStyle(BeerStyleEnum.ALE)
+					.beerStyle(BeerStyleEnum.ALE.name())
 					.quantityToBrew(200)
 					.minOnHand(12)
 					.upc(BEER_1_UPC)
@@ -40,7 +40,7 @@ public class BeerLoader implements CommandLineRunner {
 			
 			beerRepository.save(Beer.builder()
 					.beerName("Galaxy Cat")
-					.beerStyle(BeerStyleEnum.PALE_ALE)
+					.beerStyle(BeerStyleEnum.PALE_ALE.name())
 					.quantityToBrew(200)
 					.minOnHand(12)
 					.upc(BEER_2_UPC)
@@ -49,5 +49,8 @@ public class BeerLoader implements CommandLineRunner {
 		}
 		
 		System.out.println("Loaded Beers - " + beerRepository.count());
+		
+		System.out.println("ID - " + 
+		beerRepository.findAll().get(0).getUuid().toString());
 	}
 }
