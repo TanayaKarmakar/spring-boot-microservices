@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AllocationListener.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mssc-beer-inventory-service</a> &gt; <a href="index.source.html" class="el_package">guru.sfg.beer.inventory.service.services</a> &gt; <span class="el_source">AllocationListener.java</span></div><h1>AllocationListener.java</h1><pre class="source lang-java linenums">package guru.sfg.beer.inventory.service.services;
+
+import guru.sfg.beer.inventory.service.config.JmsConfig;
+import guru.sfg.brewery.model.events.AllocateOrderRequest;
+import guru.sfg.brewery.model.events.AllocateOrderResult;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.jms.annotation.JmsListener;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.stereotype.Component;
+
+/**
+ * Created by jt on 12/3/19.
+ */
+<span class="fc" id="L15">@Slf4j</span>
+<span class="fc" id="L16">@RequiredArgsConstructor</span>
+@Component
+public class AllocationListener {
+    private final AllocationService allocationService;
+    private final JmsTemplate jmsTemplate;
+
+    @JmsListener(destination = JmsConfig.ALLOCATE_ORDER_QUEUE)
+    public void listen(AllocateOrderRequest request){
+<span class="nc" id="L24">        AllocateOrderResult.AllocateOrderResultBuilder builder = AllocateOrderResult.builder();</span>
+<span class="nc" id="L25">        builder.beerOrderDto(request.getBeerOrderDto());</span>
+
+        try{
+<span class="nc" id="L28">            Boolean allocationResult = allocationService.allocateOrder(request.getBeerOrderDto());</span>
+
+<span class="nc bnc" id="L30" title="All 2 branches missed.">            if (allocationResult){</span>
+<span class="nc" id="L31">                builder.pendingInventory(false);</span>
+            } else {
+<span class="nc" id="L33">                builder.pendingInventory(true);</span>
+            }
+
+<span class="nc" id="L36">            builder.allocationError(false);</span>
+<span class="nc" id="L37">        } catch (Exception e){</span>
+<span class="nc" id="L38">            log.error(&quot;Allocation failed for Order Id:&quot; + request.getBeerOrderDto().getId());</span>
+<span class="nc" id="L39">            builder.allocationError(true);</span>
+<span class="nc" id="L40">        }</span>
+
+<span class="nc" id="L42">        jmsTemplate.convertAndSend(JmsConfig.ALLOCATE_ORDER_RESPONSE_QUEUE,</span>
+<span class="nc" id="L43">                builder.build());</span>
+
+<span class="nc" id="L45">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>
